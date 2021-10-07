@@ -1,0 +1,19 @@
+# vim .local/share/nautilus/scripts/Open\ in\ Guake 
+# Add packages providing only Ubuntu binaries
+- name: Enable extra Ubuntu only repos
+  apt_repository: filename='{{item.file}}' repo='{{item.repo}}' state=present
+  loop:
+    - {file: 'guake', repo: 'ppa:linuxuprising/guake'}
+    - {file: 'shutter', repo: 'ppa:linuxuprising/shutter'}
+    - {file: 'kodi', repo: 'ppa:team-xbmc/ppa'}
+  become: true
+
+- name: Ensure productivity packages for Ubuntu
+  package: name='{{item}}' state=latest
+  loop:
+    - ubuntu-restricted-extras
+    - guake
+    - shutter
+    - kodi
+    - steam
+  become: true

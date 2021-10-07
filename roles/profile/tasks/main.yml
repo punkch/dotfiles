@@ -1,0 +1,12 @@
+- import_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+- import_tasks: ubuntu.yml
+  when: ansible_os_family == "Debian" and ansible_distribution == 'Ubuntu'
+
+# Ensure own user settings
+- name: Update own {{host_username}}
+  user:
+    name: '{{host_username}}'
+    shell: /bin/zsh
+    append: yes
+  become: true

@@ -1,0 +1,123 @@
+---
+# After installation, Debian retains CDROM entries in APT. They should be removed.
+- name: Remove cdrom entries in /apt/sources/list
+  lineinfile:
+    path: /etc/apt/sources.list
+    state: absent
+    regexp: '^deb cdrom'
+  notify: [Update APT]
+  become: true
+
+# Flush handlers for previous task.
+- meta: flush_handlers
+
+# Make sure relevant system and desktop support packages are installed.
+- name: Ensure system packages
+  package: name='{{item}}' state=latest
+  loop:
+    - plymouth
+    - plymouth-themes
+    - gnome-core
+    - gdm3
+    - gnome-color-manager
+    - gnome-tweaks
+    - gnome-shell-extensions
+    - dconf-editor
+    - libcanberra-gtk-module
+    - arc-theme
+    - papirus-icon-theme
+    - openssh-server
+    - openssh-client
+    - openvpn
+    - file-roller
+    - net-tools
+    - smartmontools
+    - network-manager
+    - network-manager-gnome
+    - network-manager-openvpn
+    - network-manager-openvpn-gnome
+    - resolvconf
+    - dnsmasq
+    - dnsutils
+    - debian-archive-keyring
+    - curl
+    - wget
+    - gnupg
+    - apt-transport-https
+    - git
+    - git-extras
+    - whois
+    - traceroute
+    - htop
+    - zip
+    - unzip
+    - rar
+    - unrar
+    - p7zip-full
+    - p7zip-rar
+    - zsh
+    - nftables
+    - hexedit
+    - debian-goodies
+    - debsums
+    - debsecan
+    - libpam-tmpdir
+  become: true
+
+# # Ensure relevant APT keys are present on the system to support extra repositories added later.
+# - name: Add apt keys
+#   apt_key:
+#     keyserver: keyserver.ubuntu.com
+#     id: '{{item}}'
+#   loop:
+#     - '9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280' # NodeSource
+#     - '2EBF997C15BDA244B6EBF5D84773BD5E130D1D45' # Spotify
+#     - 'DB085A08CA13B8ACB917E0F6D938EC0D038651BD' # Slack
+#     - '8ED17AF5D7E675EB3EE3BCE98AC3B29174885C03' # AdoptOpenJDK
+#     - '9DC858229FC7DD38854AE2D88D81803C0EBFCD88' # Docker
+#     - '8756C4F765C9AC3CB6B85D62379CE192D401AB61' # Insomnia
+#     - '72ECF46A56B4AD39C907BBB71646B01B86E50310' # Yarn
+#     - '4CCA1EAF950CEE4AB83976DCA040830F7FAC5991' # Google-1
+#     - 'EB4C1BFD4F042F6DDDCCEC917721F63BD38B4796' # Google-2
+#     - '15058500A0235D97F5D10063B188E2B695BD4743' # deb.sury.org
+#     - '0A0FAB860D48560332EFB581B75442BBDE9E3B09' # Atom
+#     - '54A647F9048D5688D7DA2ABE6A030B21BA07F4FB' # Google Cloud SDK
+#     - 'C80E383C3DE9F082E01391A0366C67DE91CA5D5F' # Lynis
+#     - 'DBA36B5181D0C816F630E889D980A17457F6FB06' # Signal
+#     - 'AEE35447B5D3E4A69860622702F762CA6730E6A7' # libkafe
+#     - 'E162F504A20CDF15827F718D4B7C549A058F8B6B' # MongoDB v4.2 rel
+#     - '1302DE60231889FE1EBACADC54678CF75A278D9C' # VS Codium
+#   become: true
+
+- name: Install fonts
+  copy: src=fonts/ dest=/usr/local/share/fonts
+  become: true
+
+# - name: Ensure system files
+#   copy: src='{{item.src}}'  dest='{{item.dest}}' mode='0644' owner='root' group='root'
+#   loop:
+#     - {src: menu-icon.svg, dest: /etc/menu-icon.svg} # Used by Arc Menu GNOME extension.
+#     - {src: wallpaper.png, dest: /etc/wallpaper.png} # System default wallpaper
+#     - {src: issue, dest: /etc/issue} # System banner
+#     - {src: issue.net, dest: /etc/issue.net} # System banner - for network clients
+#     - {src: motd, dest: /etc/motd} # User motd
+#   become: true
+
+# # Ensure DCONF profile is present on the system. This deals with desktop customization and defaults.
+# - name: Create /etc/dconf/profile
+#   file: path='/etc/dconf/profile' state=directory mode='0755' owner=root group=root
+#   become: true
+
+# - name: Copy dconf user profile config
+#   copy: src=dconf_profile_user dest=/etc/dconf/profile/user mode='0644' owner=root group=root
+#   become: true
+
+# - name: Create /etc/dconf/db/local.d
+#   file: path='/etc/dconf/db/local.d' state=directory mode='0755' owner=root group=root
+#   become: true
+
+# - name: Update dconf settings
+#   copy: src=dconf_settings.ini dest=/etc/dconf/db/local.d/00-global mode='0644' owner=root group=root
+#   notify: [Update dconf]
+#   become: true
+# # END

@@ -1,0 +1,30 @@
+# Ensure relevant APT keys are present on the system to support extra repositories added later.
+- name: Add apt keys
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: '{{item}}'
+  loop:
+    - 'C95B321B61E88C1809C4F759DDCAE044F796ECB0' # Nvidia Docker
+  become: yes
+
+- name: Download custom apt lists
+  get_url: url={{item.url}} dest={{item.dest}} mode='0640'
+  loop:
+    - url: https://nvidia.github.io/nvidia-docker/{{ansible_distribution|lower}}{{ansible_distribution_version}}/nvidia-docker.list
+      dest: /etc/apt/sources.list.d/nvidia-docker.list
+    - url: https://nvidia.github.io/nvidia-container-runtime/experimental/{{ansible_distribution|lower}}{{ansible_distribution_version}}/nvidia-container-runtime.list
+      dest: /etc/apt/sources.list.d/nvidia-container-runtime.list
+  become: yes
+
+- name: Ensure required packages are installed
+  apt: name='{{item}}' state=latest update_cache=yes
+  loop:
+    - nvidia-docker2
+  become: yes
+# Create the docker group. $ sudo groupadd docker.
+# Add your user to the docker group. $ sudo usermod -aG docker $USER
+- name: restart services and also issue daemon-reload to pick up config changes
+  systemd: name='{{item}}' state=restarted daemon_reload=yes
+  loop:
+    - docker
+  become: yes

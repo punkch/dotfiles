@@ -1,0 +1,15 @@
+- import_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Ensure group "docker" exists
+  group:
+    name: docker
+    state: present
+
+# Add user to docker group
+- name: Add {{host_username}} to the docker group
+  user:
+    name: '{{host_username}}'
+    groups: docker
+    append: yes
+  become: true
