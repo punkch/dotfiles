@@ -13,19 +13,23 @@
 
 # Make sure relevant system and desktop support packages are installed.
 - name: Ensure system packages
-  package: name='{{item}}' state=latest
-  loop:
+  apt:
+    state: latest
+    update_cache: yes
+    pkg:
     - plymouth
     - plymouth-themes
-    - gnome-core
-    - gdm3
-    - gnome-color-manager
-    - gnome-tweaks
-    - gnome-shell-extensions
-    - dconf-editor
-    - libcanberra-gtk-module
-    - arc-theme
-    - papirus-icon-theme
+    # - gnome-core
+    # - gdm3
+    # - gnome-color-manager
+    # - gnome-tweaks
+    # - gnome-shell-extensions
+    # - dconf-editor
+    # - libcanberra-gtk-module
+    # - arc-theme
+    # - papirus-icon-theme
+    # - network-manager-gnome
+    # - network-manager-openvpn-gnome
     - openssh-server
     - openssh-client
     - openvpn
@@ -33,9 +37,7 @@
     - net-tools
     - smartmontools
     - network-manager
-    - network-manager-gnome
     - network-manager-openvpn
-    - network-manager-openvpn-gnome
     - resolvconf
     - dnsmasq
     - dnsutils
@@ -90,7 +92,12 @@
 #   become: true
 
 - name: Install fonts
-  copy: src=fonts/ dest=/usr/local/share/fonts
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/share/fonts/"
+    force: yes
+  with_fileglob:
+    - fonts/* 
   become: true
 
 # - name: Ensure system files

@@ -1,0 +1,24 @@
+# sudo apt install gstreamer1.0-pulseaudio
+- name: Install viber dependencies
+  apt:
+    pkg:
+    - gstreamer1.0-pulseaudio
+  become: true
+
+- name: "Check if {{profile_viber_package_name}} is installed"
+  command: "dpkg-query -W {{profile_viber_package_name}}"
+  register: viber_package_check_deb
+  failed_when: viber_package_check_deb.rc > 1
+  changed_when: viber_package_check_deb.rc == 1
+
+- name: "Download {{profile_viber_package_name}}"
+  get_url: 
+    url="{{ profile_viber_package_url }}"
+    dest="/tmp/{{ profile_viber_package_name }}.deb"
+  when: viber_package_check_deb.rc == 1
+
+- name: Install viber_package
+  apt:
+    deb: "/tmp/{{ profile_viber_package_name }}.deb"
+  become: true
+  when: viber_package_check_deb.rc == 1

@@ -1,0 +1,22 @@
+gcloud_version: 360.0.0
+
+gcloud_archive_name: google-cloud-sdk-{{ gcloud_version }}-linux-{{ ansible_architecture }}.tar.gz
+gcloud_archive_url: https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/{{ gcloud_archive_name }}
+gcloud_archive_path: "{{ dotfiles_user_home }}"
+gcloud_library_path: "{{ gcloud_archive_path }}/google-cloud-sdk"
+# options passed to install.sh
+gcloud_usage_reporting: false
+gcloud_override_components:
+  - core
+  - alpha
+  - beta
+  - gsutil
+  - bq
+  - docker-credential-gcr
+  - kubectl
+gcloud_additional_components:  
+  - skaffold
+  - minikube
+  - cloud_sql_proxy
+  - cloud-build-local
+  - kustomize

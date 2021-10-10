@@ -8,7 +8,7 @@ fi
 #!/usr/bin/env zsh
 
 # shortcut to this dotfiles path is $ZSH
-export ZSH=$HOME/.pots
+export ZSH=$HOME/dotfiles
 
 # https://gist.github.com/QinMing/364774610afc0e06cc223b467abe83c0
 lazy_load() {
@@ -90,3 +90,7 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

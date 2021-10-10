@@ -1,16 +1,25 @@
 ---
-- name: Set up home workstation
+- name: Set up work workstation
   hosts: abuse
   roles:
     # Tag each role so that we can select individual roles to run with ansible-playbook --tags
     - {role: git, tags: ['git']}
     - {role: system, tags: ['system', 'bootstrap']}
     - {role: profile, tags: ['profile']}
-    - {role: darkwizard242.keybase, tags: ['keybase', 'profile']}
+    - {role: darkwizard242.keybase, become: yes, tags: ['keybase', 'profile']}
     - {role: zsh, tags: ['zsh', 'bootstrap']}
     - {role: geerlingguy.docker, become: yes, tags: ['virtualization', 'docker']}
+    # - {role: docker-nvidia, tags: ['virtualization', 'docker-nvidia', 'docker']}
     - {role: oefenweb.virtualbox, become: yes, tags: ['virtualization', 'virtualbox']}
-    # - {role: docker-nvidia, tags: ['virtualization', 'docker', 'nvidia']}
+    - {role: gcloud, tags: ['gcloud']}
+    # PHP
+    - {role: geerlingguy.php, become: yes, tags: ['php-base', 'php']}
+    - {role: geerlingguy.composer, become: yes, tags: ['composer', 'php']}
+    # TODO: - {role: geerlingguy.php-xdebug, become: yes, tags: ['php-xdebug', 'php']}
+    # Python 
+    - {role: marvel-nccr.python, become: yes, tags: ['python-dev', 'python']}
+    # NODE.JS 12.22.6
+    - {role: punkch.nvm, become: no, nodejs_version: "12.22.6", default: true, nvm_version: '0.39.0', nvm_profile: "", user_shell: { 'command': '/usr/bin/zsh -ic', 'alias': 'zsh' }, tags: ['node12', 'nodejs']}
 #   - {role: python, tags: ['python']}
 #   - {role: node, tags: ['node']}
 #   - {role: ruby, tags: ['ruby']}

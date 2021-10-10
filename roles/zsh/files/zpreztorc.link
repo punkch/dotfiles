@@ -35,7 +35,10 @@ zstyle ':prezto:load' pmodule \
   'prompt' \
   'git'  \
   'python' \
-  'autosuggestions'
+  'node' \
+  'docker' \
+  'ssh' \
+  'autosuggestions' 
 #
 # Editor
 #

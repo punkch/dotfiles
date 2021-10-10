@@ -56,7 +56,7 @@ fi
 
 # Run main playbook
 echo "[i] Run Playbook"
-ansible-playbook -i ~/.pots/hosts ~/.pots/home.yml
+ansible-playbook -i ./hosts ./home.yml
 
 echo "[i] From now on you can use $ dotfiles to manage your dotfiles"
 echo "[i] Done."

@@ -7,10 +7,10 @@ host_username: 'punkch'
 #  Local home directory
 dotfiles_user_home: "{{ '~' | expanduser }}"
 # Where your dotfiles live. Probably don't need to change this.
-dotfiles_home: "{{dotfiles_user_home}}/.pots"
+dotfiles_home: "{{dotfiles_user_home}}/dotfiles"
 
 # Name used in commit messages
-full_name: Pencho Belneyski
+full_name: Pencho BELNEYSKI
 # Git
 # Github username
 git_user: punkch
@@ -29,3 +29,66 @@ git_signing_key: "{{ lookup('env','GIT_SIGNING_KEY_ID') }}"
 vim_install_plugins: no
 
 # GNOME
+
+
+# geerlingguy.docker overrides to work with Parrot OS
+docker_repo_url: https://download.docker.com/linux
+docker_apt_release_channel: stable
+docker_apt_arch: amd64
+# docker_apt_repository: "deb [arch={{ docker_apt_arch }}] {{ docker_repo_url }}/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} {{ docker_apt_release_channel }}"
+docker_apt_repository: "deb [arch={{ docker_apt_arch }}] {{ docker_repo_url }}/debian {{ ansible_distribution_release }} {{ docker_apt_release_channel }}"
+docker_apt_ignore_key_error: true
+# docker_apt_gpg_key: "{{ docker_repo_url }}/{{ ansible_distribution | lower }}/gpg"
+docker_apt_gpg_key: "https://download.docker.com/linux/debian/gpg"
+docker_users: 
+  - "{{ host_username }}"
+
+# geerlingguy.php variables
+php_default_version_debian: "7.4"
+php_packages: 
+  - php{{ php_default_version_debian }}-common
+  - php{{ php_default_version_debian }}-cli
+  - php{{ php_default_version_debian }}-dev
+  - php{{ php_default_version_debian }}-fpm
+  - libpcre3-dev
+  - php{{ php_default_version_debian }}-gd
+  - php{{ php_default_version_debian }}-curl
+  - php{{ php_default_version_debian }}-imap
+  - php{{ php_default_version_debian }}-json
+  - php{{ php_default_version_debian }}-opcache
+  - php{{ php_default_version_debian }}-xml
+  - php{{ php_default_version_debian }}-mbstring
+  - php-sqlite3
+  - php-apcu
+# Extra packages to install (in addition to distro-specific default lists).
+php_packages_extra: []
+# PHP package state; use 'present' to make sure it's installed, or 'latest' to upgrade
+php_packages_state: present
+php_install_recommends: false
+php_enable_webserver: false
+php_enable_php_fpm: false
+
+# geerlingguy.composer variables
+composer_keep_updated: true
+composer_global_packages:
+  - { name: phpunit/phpunit, release: "4.7.*" }
+composer_home_path: '/usr/lib/composer'
+composer_home_owner: root
+composer_home_group: root
+
+# Python
+python_base_version: "3.9"
+python_use_deadsnakes_repo: false
+python_additional_apt_packages:
+  - wget
+  - python3-distutils
+  - python3-distutils-extra
+  - python3-apt
+
+python_install_dev: true
+# python_venv_path: "/tmp/python_venv"
+python_venv_packages:
+  - pip
+  - setuptools
+  - wheel
+python_venv_state: latest

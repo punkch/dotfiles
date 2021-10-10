@@ -1,0 +1,30 @@
+# tasks to install gcloud via archive
+- name: gcloud | Look for existing Google Cloud SDK installation
+  stat:
+    path: "{{ gcloud_archive_path }}/google-cloud-sdk/VERSION"
+  register: gcloud_status
+
+- debug: var=gcloud_status
+
+- name: gcloud | Set installed version if installation exists
+  block:
+    - name: gcloud | Importing contents of {{ gcloud_archive_path }}/google-cloud-sdk/VERSION
+      slurp:
+        src: "{{ gcloud_archive_path }}/google-cloud-sdk/VERSION"
+      register: gcloud_installed_version_data
+    - name: gcloud | Setting the gcloud_installed_version variable/fact
+      set_fact:
+        gcloud_installed_version: "{{ (gcloud_installed_version_data.content|b64decode|trim) }}"
+    - debug:
+        msg: "google-cloud-sdk: {{ gcloud_installed_version }} is installed"
+    - debug:
+        msg: >-
+          Skipping installation of google-cloud-sdk version {{ gcloud_version }} when
+          {{ gcloud_installed_version }} is already installed.
+      when: gcloud_version == gcloud_installed_version
+  when: gcloud_status.stat.exists
+
+- name: gcloud | Start installation
+  include_tasks: install.yml
+  when: gcloud_installed_version is undefined or
+        gcloud_version is version(gcloud_installed_version, '>')
