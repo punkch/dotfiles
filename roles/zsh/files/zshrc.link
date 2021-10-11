@@ -9,6 +9,11 @@ fi
 
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/dotfiles
+# Set ZSH_CACHE_DIR to the path where cache files should be created
+# or else we will use the default cache/
+if [[ -z "$ZSH_CACHE_DIR" ]]; then
+  ZSH_CACHE_DIR="$ZSH/cache"
+fi
 
 # https://gist.github.com/QinMing/364774610afc0e06cc223b467abe83c0
 lazy_load() {
