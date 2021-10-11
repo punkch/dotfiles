@@ -20,11 +20,10 @@
     - {role: marvel-nccr.python, become: yes, tags: ['python-dev', 'python']}
     # NODE.JS 12.22.6
     - {role: punkch.nvm, become: no, nodejs_version: "12.22.6", default: true, nvm_version: '0.39.0', nvm_profile: "", user_shell: { 'command': '/usr/bin/zsh -ic', 'alias': 'zsh' }, tags: ['node12', 'nodejs']}
-#   - {role: python, tags: ['python']}
-#   - {role: node, tags: ['node']}
-#   - {role: ruby, tags: ['ruby']}
-#   - {role: hub, tags: ['hub']}
-#   - {role: vim, tags: ['vim']}
+    # DevOps tools
+    - {role: diodonfrost.terraform, become: yes, terraform_version: "0.13.4", terraform_path: "/usr/local/bin", tags: ['terraform', 'devops']}
+    - {role: geerlingguy.helm, become: yes, helm_version: "v3.7.0", tags: ['helm', 'devops']}
+    - {role: devspace, become: yes, devspace_version: "v5.14.4", tags: ['devspace', 'devops']}
 #   - {role: zsh-autoenv, tags: ['zsh-autoenv']}
 #   - {role: rg, tags: ['rg']}
 #   - {role: exa, tags: ['exa']}

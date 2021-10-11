@@ -15,3 +15,5 @@ roles:
 - name: marvel-nccr.python
   src: https://github.com/punkch/ansible-role-python
   version: master
+- diodonfrost.terraform
+- geerlingguy.helm

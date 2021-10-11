@@ -1,0 +1,29 @@
+- name: Check if Devspace binary exists.
+  stat:
+    path: "{{ devspace_bin_path }}"
+  register: devspace_check
+
+- name: Check Devspace version.
+  command: "{{ devspace_bin_path }} --version"
+  failed_when: false
+  changed_when: false
+  register: devspace_existing_version
+
+- name: Download Devspace
+  get_url:
+    url: "https://github.com/loft-sh/devspace/releases/download/{{ devspace_version }}/devspace-{{ devspace_platform }}-{{ devspace_arch }}"
+    dest: /tmp
+    mode: 0755
+  register: devspace_download
+  when: >
+    not devspace_check.stat.exists
+    or devspace_version not in devspace_existing_version.stdout
+
+- name: Copy devspace binary into place.
+  copy:
+    src: "/tmp/devspace-{{ devspace_platform }}-{{ devspace_arch }}"
+    dest: "{{ devspace_bin_path }}"
+    mode: 0755
+    remote_src: true
+  become: true
+  when: devspace_download is changed

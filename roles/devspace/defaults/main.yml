@@ -1,0 +1,6 @@
+# See available releases: https://github.com/loft-sh/devspace/releases
+devspace_version: 'v5.14.4'
+devspace_platform: linux
+devspace_arch: amd64
+
+devspace_bin_path: /usr/local/bin/devspace
