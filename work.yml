@@ -3,9 +3,10 @@
   hosts: abuse
   roles:
     # Tag each role so that we can select individual roles to run with ansible-playbook --tags
-    - {role: git, tags: ['git']}
+    - {role: git, git_signing_key: E983C38E, tags: ['git']}
     - {role: system, tags: ['system', 'bootstrap']}
     - {role: profile, tags: ['profile']}
+    - {role: codium, tags: ['codium', 'profile']}
     - {role: darkwizard242.keybase, become: yes, tags: ['keybase', 'profile']}
     - {role: zsh, tags: ['zsh', 'bootstrap']}
     - {role: geerlingguy.docker, become: yes, tags: ['virtualization', 'docker']}

@@ -1,0 +1,14 @@
+---
+codium_package_name: "codium"
+# Visual Studio Code version number (defaults to the latest version)
+codium_package_version: ""
+codium_executable: "codium"
+
+# Users to install extensions for and/or write settings.json
+codium_users: []
+
+# The name of the directory where the config is stored for this build
+codium_config_dirname: "VSCodium"
+
+# Directory under $HOME where where VS Code config is stored
+codium_config_path: ".config/{{ codium_config_dirname }}"

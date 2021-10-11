@@ -1,0 +1,1 @@
+Adopted from [gantsign.visual-studio-code](https://github.com/gantsign/ansible-role-visual-studio-code) to work **only** for [VS Codium](https://vscodium.com/) and the Debian OS family.

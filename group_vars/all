@@ -20,7 +20,7 @@ git_email: pencho@belneiski.com
 
 # GPG Key ID used to sign git commits
 # See https://github.com/pstadler/keybase-gpg-github setup instructions
-git_signing_key: "{{ lookup('env','GIT_SIGNING_KEY_ID') }}"
+# git_signing_key: "{{ lookup('env','GIT_SIGNING_KEY_ID') }}"
 
 # Vim
 
@@ -92,3 +92,144 @@ python_venv_packages:
   - setuptools
   - wheel
 python_venv_state: latest
+
+# Codium setup
+codium_users:
+  - username: "{{ host_username }}"
+    extensions:
+      - aaron-bond.better-comments
+      - CoenraadS.bracket-pair-colorizer
+      - oouo-diogo-perdigao.docthis
+      - hediet.vscode-drawio
+      - donjayamanne.git-extension-pack
+      - GitHub.github-vscode-theme
+      - oderwat.indent-rainbow
+      - vincaslt.highlight-matching-tag
+      - yzhang.markdown-all-in-one
+      - DavidAnson.vscode-markdownlint
+      - silvenon.mdx
+      - christian-kohler.npm-intellisense
+      - christian-kohler.path-intellisense
+      - felixfbecker.php-debug
+      - bmewburn.vscode-intelephense-client
+      - shevaua.phpcs
+      - mblode.twig-language-2
+      - redhat.vscode-yaml
+      - redhat.ansible
+      - octref.vetur
+      - vscode-icons-team.vscode-icons
+      - WakaTime.vscode-wakatime
+      - DotJoshJohnson.xml
+      - EditorConfig.EditorConfig
+      - dsznajder.es7-react-js-snippets
+      - dbaeumer.vscode-eslint
+      - GrapeCity.gc-excelviewer
+    settings_overwrite: yes
+    settings: {
+      "terminal.integrated.fontFamily": "RobotoMono Nerd Font, Consolas",
+      "terminal.integrated.fontSize": 12,
+      "terminal.integrated.shell.linux": "/usr/bin/zsh",
+      "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+
+      "workbench.iconTheme": "eq-material-theme-icons-light",
+      "workbench.colorTheme": "GitHub Light Default",
+      "workbench.colorCustomizations": {
+        "terminal.background": "#505050",
+        "terminal.foreground": "#D0D0D0",
+        "terminal.ansiBlack": "#151515",
+        "terminal.ansiBrightBlack": "#505050",
+        "terminal.ansiRed": "#AC4142",
+        "terminal.ansiBrightRed": "#AC4142",
+        "terminal.ansiGreen": "#7E8D50",
+        "terminal.ansiBrightGreen": "#7E8D50",
+        "terminal.ansiYellow": "#E5B567",
+        "terminal.ansiBrightYellow": "#E5B567",
+        "terminal.ansiBlue": "#6C99BA",
+        "terminal.ansiBrightBlue": "#6C99BA",
+        "terminal.ansiMagenta": "#9E4E85",
+        "terminal.ansiBrightMagenta": "#9E4E85",
+        "terminal.ansiCyan": "#7DD5CF",
+        "terminal.ansiBrightCyan": "#7DD5CF",
+        "terminal.ansiWhite": "#D0D0D0",
+        "terminal.ansiBrightWhite": "#F5F5F5"
+      },
+      "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+      },
+
+      "editor.snippetSuggestions": "top",
+      "editor.tabSize": 2,
+      "editor.detectIndentation": false,
+      "editor.renderControlCharacters": false,
+      "editor.renderWhitespace": "none",
+      
+      "diffEditor.ignoreTrimWhitespace": false,
+      
+      "explorer.confirmDelete": false,
+
+      "git.autofetch": true,
+      "git.confirmSync": false,
+      "gitlens.advanced.messages": {
+          "suppressShowKeyBindingsNotice": true
+      },
+      "gitlens.historyExplorer.enabled": true,
+      "gitlens.views.fileHistory.enabled": true,
+      "gitlens.views.lineHistory.enabled": true,    
+    
+      "indentRainbow.colors": [
+        "rgba(255,255,127,0.07)",
+        "rgba(127,255,127,0.07)",
+        "rgba(127,236,236,0.07)",
+        "rgba(255,127,255,0.07)"
+      ],
+    
+      "javascript.updateImportsOnFileMove.enabled": "always",
+    
+      "vsicons.dontShowNewVersionMessage": true,
+
+      "files.associations": {
+        ".php_cs": "php"
+      },
+    
+      "better-comments.tags": [
+        {
+          "tag": "!",
+          "color": "#FF2D00",
+          "strikethrough": false,
+          "backgroundColor": "transparent"
+        },
+        {
+          "tag": "?",
+          "color": "#3498DB",
+          "strikethrough": false,
+          "backgroundColor": "transparent"
+        },
+        {
+          "tag": "//",
+          "color": "#474747",
+          "strikethrough": true,
+          "backgroundColor": "transparent"
+        },
+        {
+          "tag": "todo",
+          "color": "#FF8C00",
+          "strikethrough": false,
+          "backgroundColor": "transparent"
+        },
+        {
+          "tag": "*",
+          "color": "#98C379",
+          "strikethrough": false,
+          "backgroundColor": "transparent"
+        }
+      ],
+      
+      "redhat.telemetry.enabled": false
+    }
+    keybindings_overwrite: yes
+    keybindings: [
+      { "key": "alt+shift+down",   "command": "editor.action.copyLinesDownAction",
+                                      "when": "editorTextFocus && !editorReadonly" },
+      { "key": "alt+shift+up",     "command": "editor.action.copyLinesUpAction",
+                                      "when": "editorTextFocus && !editorReadonly" }
+    ]

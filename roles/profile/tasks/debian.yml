@@ -16,12 +16,14 @@
   loop:
     - {file: 'spotify', repo: 'deb http://repository.spotify.com stable non-free'} # HTTP :(
     - {file: 'google-chrome', repo: 'deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main'}
-    - {file: 'vscodium', repo: 'deb https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs/ vscodium main'}
   become: true
 
 - name: Ensure packages from PPA
   package: name='{{item}}' state=latest
   loop:
+    - plank
+    # - xfce4-weather-plugin
+    # - xfce4-xkb-plugin
     - openvpn
     - filezilla
     - vlc
@@ -29,7 +31,6 @@
     - inkscape
     - spotify-client
     - google-chrome-stable
-    - codium
     - guake
     - liblua5.3-dev
     - libcurl4-gnutls-dev
