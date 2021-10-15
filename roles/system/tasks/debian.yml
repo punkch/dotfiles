@@ -19,6 +19,7 @@
     pkg:
     - plymouth
     - plymouth-themes
+    - fonts-noto
     # - gnome-core
     # - gdm3
     # - gnome-color-manager
