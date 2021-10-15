@@ -5,6 +5,7 @@ roles:
 - geerlingguy.composer
 - geerlingguy.php-xdebug
 - oefenweb.virtualbox
+- oefenweb.slack
 - petermosmans.customize-gnome
 - name: darkwizard242.keybase
   src: https://github.com/punkch/ansible-role-keybase
