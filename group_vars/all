@@ -124,6 +124,7 @@ codium_users:
       - dsznajder.es7-react-js-snippets
       - dbaeumer.vscode-eslint
       - GrapeCity.gc-excelviewer
+      - ms-kubernetes-tools.vscode-kubernetes-tools
     settings_overwrite: yes
     settings: {
       "terminal.integrated.fontFamily": "RobotoMono Nerd Font, Consolas",
