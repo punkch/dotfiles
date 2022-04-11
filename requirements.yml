@@ -18,3 +18,4 @@ roles:
   version: master
 - diodonfrost.terraform
 - geerlingguy.helm
+- fubarhouse.golang

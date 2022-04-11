@@ -13,7 +13,7 @@
   register: gitconfig_stat
 
 - name: Back up gitconfig
-  command: mv ~/.gitconfig ~/.gitconfig.bak
+  command: mv {{dotfiles_user_home}}/.gitconfig {{dotfiles_user_home}}/.gitconfig.bak
   args:
     creates: "{{dotfiles_user_home}}/.gitconfig.bak"
   when: gitconfig_stat.stat.exists
@@ -22,3 +22,13 @@
   template:
     src: "gitconfig.j2"
     dest: "{{dotfiles_user_home}}/.gitconfig"
+
+
+#deb http://deb.debian.org/debian bullseye main
+#deb-src http://deb.debian.org/debian bullseye main
+#deb http://security.debian.org/debian-security bullseye-security main
+#deb-src http://security.debian.org/debian-security bullseye-security main
+#deb http://deb.debian.org/debian bullseye-updates main
+#deb-src http://deb.debian.org/debian bullseye-updates main
+#deb http://deb.debian.org/debian bullseye-backports main
+#deb-src http://deb.debian.org/debian bullseye-backports main

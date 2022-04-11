@@ -65,6 +65,9 @@
     - debsums
     - debsecan
     - libpam-tmpdir
+    - cpu-checker
+    - libappindicator3-1
+    - libindicator3-7
   become: true
 
 # # Ensure relevant APT keys are present on the system to support extra repositories added later.
